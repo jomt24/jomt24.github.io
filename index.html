@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>马六甲天气预报</title>
+    <title>太一管家</title>
     <link rel="stylesheet" href="index.css">
     <style>
         body {
@@ -36,16 +36,6 @@
             font-size: 1.5rem;
             margin: 10px 0;
         }
-        input {
-            padding: 10px;
-            font-size: 1rem;
-            margin-right: 10px;
-        }
-        button {
-            padding: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -58,14 +48,12 @@
     <div class="title">太一管家</div>
 
     <div class="weather-container">
-        <input type="text" id="city-input" placeholder="输入城市" value="马六甲">
-        <button onclick="fetchWeather()">查询</button>
-        <div id="weather-info" class="info"></div>
+        <div id="weather-info" class="info">加载天气数据...</div>
     </div>
 
     <script>
         function fetchWeather() {
-            var city = document.getElementById('city-input').value || 'Malacca';
+            var city = 'Malacca'; 
             var apiKey = '4c3625d0-8183-11ef-8d8d-0242ac130003-4c3626a2-8183-11ef-8d8d-0242ac130003'; 
             var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
