@@ -1,42 +1,64 @@
-
-@function getShadows($n){
- $shadows:'#{random(100)}vw #{random(100)}vh #fff';
-
- @for $i from 2 through $n{
-    $shadows:'#{$shadows},#{random(100)}vw #{random(100)}vh #fff';
- }
- @return unquote($shadows);
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #000 0%, #001133 100%); // 渐变背景
 }
 
-$duration: 200s;
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.layer {
+  position: fixed;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5); // 添加半透明的白色背景
+}
+
+@function getShadows($n) {
+  $shadows: '#{random(100)}vw #{random(100)}vh #fff';
+  
+  @for $i from 2 through $n {
+    $shadows: '#{$shadows}, #{random(100)}vw #{random(100)}vh #fff';
+  }
+  
+  @return unquote($shadows);
+}
+
+@keyframes moveUp {
+  100% {
+    transform: translateY(-100vh);
+  }
+}
+
+$duration: 400s;
 $count: 1000;
-@for $i from 1 through 3{
-$duration: floor($duration / 2);
-$count: floor($count / 2);
-.layer#{$i} { 
- $size: #{$i}px;
- position: fixed;
- width: $size;
- height: $size;
- border-radius: 50%;
- left: 0;
- top: 0;
- box-shadow: getShadows($count);
- animation: moveUp $duration linear infinite;
- &::after{
-    content: '';
-    position: fixed;
-    left: 0;
-    top: 100vh;
+
+@for $i from 1 through 3 {
+  $size: #{$i * 2}px; // 增加星星的大小
+  .layer#{$i} { 
     width: $size;
     height: $size;
-    border-radius: inherit;
-    box-shadow: inherit;
- }
-}
-}
-@keyframes moveUp{
- 100%{
-    transform: translateY(-100vh);
- }
+    left: 0;
+    top: 0;
+    box-shadow: getShadows($count);
+    animation: moveUp $duration linear infinite;
+
+    &::after {
+      content: '';
+      position: fixed;
+      left: 0;
+      top: 100vh;
+      width: $size;
+      height: $size;
+      border-radius: inherit;
+      box-shadow: inherit;
+    }
+  }
 }
