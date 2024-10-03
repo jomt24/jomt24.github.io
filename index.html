@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>太一管家</title>
+    <title>SCSS Layers</title>
     <link rel="stylesheet" href="index.css">
     <style>
         body {
@@ -11,30 +11,15 @@
             padding: 0;
             overflow: hidden;
             background-color: #000;
-            font-family: 'Lato', sans-serif;
         }
         .title {
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2.5rem;
-            color: white;
-            z-index: 10;
-            letter-spacing: 5px;
-        }
-        .weather-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            font-size: 2rem;
             color: white;
-            text-align: center;
             z-index: 10;
-        }
-        .info {
-            font-size: 1.5rem;
-            margin: 10px 0;
         }
     </style>
 </head>
@@ -46,40 +31,6 @@
     <div class="layer4"></div>
     <div class="layer5"></div>
     <div class="title">太一管家</div>
-
-    <div class="weather-container">
-        <div id="weather-info" class="info">加载天气数据...</div>
-    </div>
-
-    <script>
-        function fetchWeather() {
-            var city = 'Malacca'; 
-            var apiKey = '4c3625d0-8183-11ef-8d8d-0242ac130003-4c3626a2-8183-11ef-8d8d-0242ac130003'; // 替换为你的API密钥
-            var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-            fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('网络响应错误');
-                }
-                return response.json();
-            })
-            .then(data => {
-                var weatherInfo = `
-                    <p>温度: ${data.main.temp}°C</p>
-                    <p>湿度: ${data.main.humidity}%</p>
-                    <p>风速: ${data.wind.speed} m/s</p>
-                `;
-                document.getElementById('weather-info').innerHTML = weatherInfo;
-            })
-            .catch(err => {
-                document.getElementById('weather-info').innerHTML = `<p style="color: red;">${err.message}</p>`;
-            });
-        }
-
-        // 自动查询马六甲天气
-        window.onload = fetchWeather;
-    </script>
 
 </body>
 </html>
