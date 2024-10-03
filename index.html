@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCSS Layers</title>
+    <title>马六甲天气预报</title>
     <link rel="stylesheet" href="index.css">
     <style>
         body {
@@ -11,15 +11,40 @@
             padding: 0;
             overflow: hidden;
             background-color: #000;
+            font-family: 'Lato', sans-serif;
         }
         .title {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: white;
+            z-index: 10;
+            letter-spacing: 5px;
+        }
+        .weather-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2rem;
             color: white;
+            text-align: center;
             z-index: 10;
+        }
+        .info {
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -31,6 +56,42 @@
     <div class="layer4"></div>
     <div class="layer5"></div>
     <div class="title">太一管家</div>
+
+    <div class="weather-container">
+        <input type="text" id="city-input" placeholder="输入城市" value="马六甲">
+        <button onclick="fetchWeather()">查询</button>
+        <div id="weather-info" class="info"></div>
+    </div>
+
+    <script>
+        function fetchWeather() {
+            var city = document.getElementById('city-input').value || 'Malacca';
+            var apiKey = '4c3625d0-8183-11ef-8d8d-0242ac130003-4c3626a2-8183-11ef-8d8d-0242ac130003'; 
+            var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('城市未找到');
+                }
+                return response.json();
+            })
+            .then(data => {
+                var weatherInfo = `
+                    <p>温度: ${data.main.temp}°C</p>
+                    <p>湿度: ${data.main.humidity}%</p>
+                    <p>风速: ${data.wind.speed} m/s</p>
+                `;
+                document.getElementById('weather-info').innerHTML = weatherInfo;
+            })
+            .catch(err => {
+                document.getElementById('weather-info').innerHTML = `<p style="color: red;">${err.message}</p>`;
+            });
+        }
+
+        // 自动查询马六甲天气
+        window.onload = fetchWeather;
+    </script>
 
 </body>
 </html>
