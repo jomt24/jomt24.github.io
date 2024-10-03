@@ -54,13 +54,13 @@
     <script>
         function fetchWeather() {
             var city = 'Malacca'; 
-            var apiKey = '4c3625d0-8183-11ef-8d8d-0242ac130003-4c3626a2-8183-11ef-8d8d-0242ac130003'; 
+            var apiKey = '4c3625d0-8183-11ef-8d8d-0242ac130003-4c3626a2-8183-11ef-8d8d-0242ac130003'; // 替换为你的API密钥
             var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
             fetch(url)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('城市未找到');
+                    throw new Error('网络响应错误');
                 }
                 return response.json();
             })
